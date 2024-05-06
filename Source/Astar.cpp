@@ -6,15 +6,17 @@
 #include "Headers/Global.hpp"
 #include "Headers/Astar.hpp"
 #include "Headers/GetAdjacentCells.hpp"
+#include <algorithm>
+#include <cmath>
 
 float calculate_h_score(const gbl::Position<>& i_cell_0, const gbl::Position<>& i_cell_1)
 {
-	float distance_x = abs(i_cell_1.first - i_cell_0.first);
-	float distance_y = abs(i_cell_1.second - i_cell_0.second);
+	float distance_x = std::abs(i_cell_1.first - i_cell_0.first);
+	float distance_y = std::abs(i_cell_1.second - i_cell_0.second);
 
 	//This is the minimal distance it takes to move from cell_0 to cell_1 if we move in 8 directions and ignore every obstacle.
 	//I don't recommend using other types of distance calculations because then Astar doesn't find the shortest path.
-	return std::max(distance_x, distance_y) + std::min(distance_x, distance_y) * (sqrt(2) - 1);
+	return std::max(distance_x, distance_y) + std::min(distance_x, distance_y) * (std::sqrt(2) - 1);
 }
 
 bool astar_search(unsigned short& i_path_length, unsigned short& i_total_checks, std::chrono::microseconds& i_duration, std::map<gbl::Position<>, gbl::Position<>>& i_previous_cell, std::vector<gbl::Position<>>& i_path_vector, gbl::Map<float>& i_f_scores, gbl::Map<float>& i_g_scores, const gbl::Map<float>& i_h_scores, const gbl::Position<>& i_finish_position, const gbl::Position<>& i_start_position, gbl::Map<>& i_map)
@@ -87,10 +89,10 @@ bool astar_search(unsigned short& i_path_length, unsigned short& i_total_checks,
 			{
 				float g_score = i_g_scores[min_f_cell.first][min_f_cell.second];
 
-				if (abs(adjacent_cell.first - min_f_cell.first) == abs(adjacent_cell.second - min_f_cell.second))
+				if (std::abs(adjacent_cell.first - min_f_cell.first) == std::abs(adjacent_cell.second - min_f_cell.second))
 				{
 					//If the adjacent cell is located diagonally, we add the square root of 2.
-					g_score += sqrt(2);
+					g_score += std::sqrt(2);
 				}
 				else
 				{

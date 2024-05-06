@@ -5,6 +5,7 @@
 #include "Headers/Global.hpp"
 #include "Headers/GetAdjacentCells.hpp"
 #include "Headers/GetCell.hpp"
+#include <cmath>
 
 std::vector<gbl::Position<>> get_adjacent_cells(const gbl::Position<>& i_cell, const gbl::Map<>& i_map)
 {
@@ -17,7 +18,7 @@ std::vector<gbl::Position<>> get_adjacent_cells(const gbl::Position<>& i_cell, c
 
 	for (unsigned char a = 0; a < valid_adjacent_cells.size(); a++)
 	{
-		gbl::MAP::Cell cell = get_cell(gbl::Position<short>(i_cell.first + a % 3 - 1, i_cell.second + floor(a / 3.f) - 1), i_map);
+		gbl::MAP::Cell cell = get_cell(gbl::Position<short>(i_cell.first + a % 3 - 1, i_cell.second + std::floor(a / 3.f) - 1), i_map);
 
 		valid_adjacent_cells[a] = gbl::MAP::Cell::Invalid != cell && gbl::MAP::Cell::Wall != cell;
 	}

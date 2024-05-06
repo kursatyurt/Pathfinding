@@ -6,6 +6,7 @@
 #include "Headers/Global.hpp"
 #include "Headers/Dijkstra.hpp"
 #include "Headers/GetAdjacentCells.hpp"
+#include <cmath>
 
 DijkstraComparison::DijkstraComparison(gbl::Map<float>* i_distances) :
 	distances(i_distances)
@@ -76,9 +77,9 @@ bool dijkstra_search(unsigned short& i_path_length, unsigned short& i_total_chec
 			{
 				float distance = 1;
 
-				if (abs(adjacent_cell.first - min_distance_cell.first) == abs(adjacent_cell.second - min_distance_cell.second))
+				if (std::abs(adjacent_cell.first - min_distance_cell.first) == std::abs(adjacent_cell.second - min_distance_cell.second))
 				{
-					distance = sqrt(2);
+					distance = std::sqrt(2);
 				}
 
 				if (i_distances[adjacent_cell.first][adjacent_cell.second] > distance + i_distances[min_distance_cell.first][min_distance_cell.second])

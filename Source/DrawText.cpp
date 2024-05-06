@@ -6,6 +6,7 @@
 
 #include "Headers/Global.hpp"
 #include "Headers/DrawText.hpp"
+#include <cmath>
 
 void draw_stats(const short i_x, const short i_y, const unsigned short i_path_length, const unsigned short i_total_checks, const std::chrono::microseconds& i_duration, const std::string& i_algorithm_name, sf::RenderWindow& i_window, const sf::Texture& i_font_texture)
 {
@@ -28,7 +29,7 @@ void draw_text(const bool i_center_x, const bool i_center_y, const short i_x, co
 
 	if (1 == i_center_x)
 	{
-		character_x = static_cast<short>(round(i_x - 0.5f * character_width * i_text.substr(0, i_text.find_first_of('\n')).size()));
+		character_x = static_cast<short>(std::round(i_x - 0.5f * character_width * i_text.substr(0, i_text.find_first_of('\n')).size()));
 	}
 	else
 	{
@@ -37,7 +38,7 @@ void draw_text(const bool i_center_x, const bool i_center_y, const short i_x, co
 
 	if (1 == i_center_y)
 	{
-		character_y = static_cast<short>(round(i_y - 0.5f * i_font_texture.getSize().y * (1 + std::count(i_text.begin(), i_text.end(), '\n'))));
+		character_y = static_cast<short>(std::round(i_y - 0.5f * i_font_texture.getSize().y * (1 + std::count(i_text.begin(), i_text.end(), '\n'))));
 	}
 	else
 	{
@@ -55,7 +56,7 @@ void draw_text(const bool i_center_x, const bool i_center_y, const short i_x, co
 				//2) Go back 2 years.
 				//3) Find me.
 				//4) Ask me to explain it.
-				character_x = static_cast<short>(round(i_x - 0.5f * character_width * i_text.substr(1 + a - i_text.begin(), i_text.find_first_of('\n', 1 + a - i_text.begin()) - (1 + a - i_text.begin())).size()));
+				character_x = static_cast<short>(std::round(i_x - 0.5f * character_width * i_text.substr(1 + a - i_text.begin(), i_text.find_first_of('\n', 1 + a - i_text.begin()) - (1 + a - i_text.begin())).size()));
 			}
 			else
 			{
